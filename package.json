@@ -1,6 +1,6 @@
 {
   "name": "map-iterable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Array.prototype.map analog for iterables.",
   "repository": "parro-it/map-iterable",
   "license": "MIT",
