@@ -1,5 +1,7 @@
 # map-iterable
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/parro-it/map-iterable.svg)](https://greenkeeper.io/)
+
 > Array.prototype.map analog for iterables.
 
 [![Travis Build Status](https://img.shields.io/travis/parro-it/map-iterable.svg)](http://travis-ci.org/parro-it/map-iterable)
