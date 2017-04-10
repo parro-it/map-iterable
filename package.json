@@ -6,8 +6,7 @@
   "license": "MIT",
   "author": "Andrea Parodi <andrea@parro.it>",
   "scripts": {
-    "test": "ava --no-babel && xo",
-    "cover-test": "nyc ava --no-babel"
+    "test": "ava && xo"
   },
   "keywords": [
     "iterable",
@@ -19,9 +18,7 @@
     "node": ">=4"
   },
   "devDependencies": {
-    "ava": "^0.18.2",
-    "coveralls": "^2.11.11",
-    "nyc": "^10.2.0",
+    "ava": "^0.19.1",
     "xo": "^0.18.1"
   },
   "files": [
