@@ -4,7 +4,7 @@
 
 > Array.prototype.map analog for iterables.
 
-[![Travis Build Status](https://img.shields.io/travis/parro-it/map-iterable.svg)](http://travis-ci.org/parro-it/map-iterable)
+[![Travis Build Status](https://img.shields.io/travis/parro-it/map-iterable/master.svg)](http://travis-ci.org/parro-it/map-iterable)
 [![NPM module](https://img.shields.io/npm/v/map-iterable.svg)](https://npmjs.org/package/map-iterable)
 [![NPM downloads](https://img.shields.io/npm/dt/map-iterable.svg)](https://npmjs.org/package/map-iterable)
 
