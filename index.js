@@ -4,14 +4,27 @@ function initDefault(data) {
   return data;
 }
 
-export default function map(options, data) {
+/**
+ * Creates a new iterable with the results of calling
+ * `transform` function on every element in `data` iterable.
+ * If you omit the data argument return a unary function that
+ * accept the data argument and map over the provided function.
+ *
+ * @param  {Function} transform - a function that return an element of the new Iterable, receiving as arguments:
+ *    .
+ *    currentValue - The current element being processed in the iterable.
+ *    index - The index of the current element being processed in the iterable.
+ * @param  {Iterable} data - The source iterable to iterate over.
+ * @return {Iterable} A new Iterable over results of the transform function.
+ */
+export default function map(transform, data) {
   if (typeof data === "undefined") {
-    return map.bind(null, options);
+    return map.bind(null, transform);
   }
 
   if (
-    typeof options !== "function" &&
-    (typeof options !== "object" || options === null)
+    typeof transform !== "function" &&
+    (typeof transform !== "object" || transform === null)
   ) {
     throw new TypeError(
       "Callback argument must be a function or option object"
@@ -24,8 +37,8 @@ export default function map(options, data) {
 
   let idx = 0;
 
-  const init = options.init || initDefault;
-  const callback = options.callback || options;
+  const init = transform.init || initDefault;
+  const callback = transform.callback || transform;
 
   const ctx = init(data);
   const dataIterator = data[Symbol.iterator]();
