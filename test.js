@@ -24,7 +24,6 @@ test("pass item index to the callback", t => {
 
 test("can be curried", t => {
   const mapDouble = map(double);
-
   t.deepEqual(Array.from(mapDouble(fixture)), expected);
 });
 
@@ -38,4 +37,14 @@ test("throws if callback is not a function nor an object", t => {
   const err = t.throws(() => map(42, []));
   t.is(err.message, "transform argument must be a function.");
   t.true(err instanceof TypeError);
+});
+
+test("work with generators", t => {
+  const mapDouble = map(double);
+  const generator = function*() {
+    yield 1;
+    yield 2;
+    yield 3;
+  };
+  t.deepEqual([...mapDouble(generator())], expected);
 });

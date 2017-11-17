@@ -27,8 +27,6 @@ export default function map(transform, data) {
   }
 
   let idx = 0;
-
-  const callback = transform.callback || transform;
   const dataIterator = data[Symbol.iterator]();
 
   return {
@@ -39,7 +37,7 @@ export default function map(transform, data) {
     next() {
       const item = dataIterator.next();
       if (!item.done) {
-        item.value = callback(item.value, idx++);
+        item.value = transform(item.value, idx++);
       }
       return item;
     }
