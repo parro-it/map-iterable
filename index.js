@@ -1,9 +1,5 @@
 import isIterable from "is-iterable";
 
-function initDefault(data) {
-  return data;
-}
-
 /**
  * Creates a new iterable with the results of calling
  * `transform` function on every element in `data` iterable.
@@ -18,29 +14,21 @@ function initDefault(data) {
  * @return {Iterable} A new Iterable over results of the transform function.
  */
 export default function map(transform, data) {
+  if (typeof transform !== "function") {
+    throw new TypeError("transform argument must be a function.");
+  }
+
   if (typeof data === "undefined") {
     return map.bind(null, transform);
   }
 
-  if (
-    typeof transform !== "function" &&
-    (typeof transform !== "object" || transform === null)
-  ) {
-    throw new TypeError(
-      "Callback argument must be a function or option object"
-    );
-  }
-
   if (!isIterable(data)) {
-    throw new TypeError("Data argument must be an iterable");
+    throw new TypeError("data argument must be an iterable.");
   }
 
   let idx = 0;
 
-  const init = transform.init || initDefault;
   const callback = transform.callback || transform;
-
-  const ctx = init(data);
   const dataIterator = data[Symbol.iterator]();
 
   return {
@@ -51,7 +39,7 @@ export default function map(transform, data) {
     next() {
       const item = dataIterator.next();
       if (!item.done) {
-        item.value = callback(item.value, idx++, ctx);
+        item.value = callback(item.value, idx++);
       }
       return item;
     }
