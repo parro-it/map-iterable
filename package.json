@@ -8,17 +8,33 @@
   "scripts": {
     "test": "ava && linterjs ."
   },
-  "keywords": ["iterable", "generator", "map", "functional"],
+  "keywords": [
+    "iterable",
+    "generator",
+    "map",
+    "functional"
+  ],
   "engines": {
     "node": ">=9"
   },
   "devDependencies": {
+    "@std/esm": "^0.16.0",
     "ava": "^0.21.0",
     "linterjs": "^1.10.1"
   },
-  "files": ["index.js"],
+  "files": [
+    "index.js"
+  ],
+  "ava": {
+    "require": [
+      "@std/esm"
+    ]
+  },
+  "@std/esm": {
+    "esm": "js",
+    "cjs": true
+  },
   "dependencies": {
-    "is-iterable": "^1.1.0",
-    "curry": "^1.2.0"
+    "is-iterable": "^1.1.0"
   }
 }

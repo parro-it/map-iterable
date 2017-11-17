@@ -1,13 +1,14 @@
-"use strict";
-
-const curry = require("curry");
-const isIterable = require("is-iterable");
+import isIterable from "is-iterable";
 
 function initDefault(data) {
   return data;
 }
 
-function map(options, data) {
+export default function map(options, data) {
+  if (typeof data === "undefined") {
+    return map.bind(null, options);
+  }
+
   if (
     typeof options !== "function" &&
     (typeof options !== "object" || options === null)
@@ -43,5 +44,3 @@ function map(options, data) {
     }
   };
 }
-
-module.exports = curry(map);
