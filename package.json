@@ -1,12 +1,13 @@
 {
   "name": "map-iterable",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Array.prototype.map analog for iterables.",
   "repository": "parro-it/map-iterable",
   "license": "MIT",
   "author": "Andrea Parodi <andrea@parro.it>",
   "scripts": {
-    "test": "ava && xo"
+    "test": "ava && linterjs .",
+    "doc": "documentation readme index.js --section=API"
   },
   "keywords": [
     "iterable",
@@ -15,17 +16,29 @@
     "functional"
   ],
   "engines": {
-    "node": ">=4"
+    "node": ">=9"
   },
   "devDependencies": {
+
     "ava": "^0.23.0",
-    "xo": "^0.18.1"
+    "@std/esm": "^0.16.0",
+     "documentation": "^5.3.3",
+    "linterjs": "^1.10.1"
+
   },
   "files": [
     "index.js"
   ],
+  "ava": {
+    "require": [
+      "@std/esm"
+    ]
+  },
+  "@std/esm": {
+    "esm": "js",
+    "cjs": true
+  },
   "dependencies": {
-    "is-iterable": "^1.1.0",
-    "curry": "^1.2.0"
+    "is-iterable": "^1.1.0"
   }
 }

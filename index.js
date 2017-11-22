@@ -1,42 +1,45 @@
-'use strict';
+import isIterable from "is-iterable";
 
-const curry = require('curry');
-const isIterable = require('is-iterable');
+/**
+ * Creates a new iterable with the results of calling
+ * `transform` function on every element in `data` iterable.
+ * If you omit the data argument return a unary function that
+ * accept the data argument and map over the provided function.
+ *
+ * @param  {Function} transform - a function that return an element of the new Iterable, receiving as arguments:
+ *    .
+ *    currentValue - The current element being processed in the iterable.
+ *    index - The index of the current element being processed in the iterable.
+ * @param  {Iterable} data - The source iterable to iterate over.
+ * @return {Iterable} A new Iterable over results of the transform function.
+ */
+export default function map(transform, data) {
+  if (typeof transform !== "function") {
+    throw new TypeError("transform argument must be a function.");
+  }
 
-function initDefault(data) {
-	return data;
+  if (typeof data === "undefined") {
+    return map.bind(null, transform);
+  }
+
+  if (!isIterable(data)) {
+    throw new TypeError("data argument must be an iterable.");
+  }
+
+  let idx = 0;
+  const dataIterator = data[Symbol.iterator]();
+
+  return {
+    [Symbol.iterator]() {
+      return this;
+    },
+
+    next() {
+      const item = dataIterator.next();
+      if (!item.done) {
+        item.value = transform(item.value, idx++);
+      }
+      return item;
+    }
+  };
 }
-
-function map(options, data) {
-	if (typeof options !== 'function' && (typeof options !== 'object' || options === null)) {
-		throw new TypeError('Callback argument must be a function or option object');
-	}
-
-	if (!isIterable(data)) {
-		throw new TypeError('Data argument must be an iterable');
-	}
-
-	let idx = 0;
-
-	const init = options.init || initDefault;
-	const callback = options.callback || options;
-
-	const ctx = init(data);
-	const dataIterator = data[Symbol.iterator]();
-
-	return {
-		[Symbol.iterator]() {
-			return this;
-		},
-
-		next() {
-			const item = dataIterator.next();
-			if (!item.done) {
-				item.value = callback(item.value, idx++, ctx);
-			}
-			return item;
-		}
-	};
-}
-
-module.exports = curry(map);
